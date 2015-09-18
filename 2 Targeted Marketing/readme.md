@@ -30,17 +30,17 @@ In [this blog post](http://oliviaklose.com/how-to-set-up-the-adventure-works-201
 <a name="getdata"></a>
 ###2. Get Data
 
-{<8>}![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%200.png)
+![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%200.png)
 
 The database of interest to us is **[dbo].[vTargetMail]** contained in the AdventureWorks database. Running `SELECT TOP 1000 * FROM [dbo].[vTargetMail]` gives us some information on vTargetMail:
 
-{<9>}![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%201.png)
+![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%201.png)
 
 We are particularly interested in the last column **BikeBuyer** indicating if a customer ended up **buying a bike or not** (hence binary classification).
 
 Moving on to the ML Studio and having already created a new experiment, we now drag the Reader module into the canvas of ML studio to read in the data directly from the view **[dbo].[vTargetMail]** contained in the Azure SQL Database **AdventureWorksDW2014** (see [here](http://oliviaklose.com/how-to-set-up-the-adventure-works-2014-warehouse-in-azure-sql-database/) for how to set it up).
 
-{<10>}![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%202.png)
+![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%202.png)
 
 On the right hand side (in the Properties pane) we specify the connection string as well as the credentials to read from the Azure SQL Database called AdventureWorksDW2014. In the database query we specify which columns are of interest to us when building the ML model, thus dropping columns, such as Title, FirstName etc.:
 
@@ -67,15 +67,15 @@ On the right hand side (in the Properties pane) we specify the connection string
 <a name="clean"></a>
 ###3. Clean Data
 
-{<11>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%200.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%200.png)
 
 Now the part comes that usually is the most time consuming one: cleaning the data. It often takes up 80% of the time of the data scientists: figuring out what of your data is actually relevant. For the sake of focussing on merely building the ML model, cleaning the data here is kept very trivial: we simply drop some more columns within the ML studio, which is the use of the **Project Columns** module:
 
-{<12>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%201.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%201.png)
 
 By clicking on **Launch column selector** in the Properties pane (on the right hand side), you can specify which columns you wish to drop or select (blacklist vs. whitelist). In this case, we only want to exclude two columns; thus, we start with all columns and exclude the particular two columns (that conveniently come up as a dropdown menu): CustomerAlternateKey and GeographyKey.
-{<13>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%202.png)
-{<14>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%203.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%202.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%204%20clean%203.png)
 
 Note that there are plenty more modules for cleaning data within AzureML, all listed in the catalogue pane on the left hand side under **Data Transformation**.
 
@@ -84,49 +84,49 @@ Note that there are plenty more modules for cleaning data within AzureML, all li
 <a name="build"></a>
 ###4. Build Model
 
-{<15>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2000.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2000.png)
 
 Once the data has been cleaned (although in this case admittedly a very trivial step), the model can be built based on the given data. Thinking a few steps ahead, how can we tell if a model is well performing or not? Hence, we **split the data in 80-20**: we use 80% to train a machine learning model but reserve the remaining 20% for testing the model:
 
-{<16>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2001.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2001.png)
 
 Since we are dealing with a binary classification problem, the machine learning algorithms of interest to us are the "Two-Class ..." algorithms marked in red. Here, we choose the **Two-Class Boosted Decision Tree** (in green):
-{<17>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2002.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2002.png)
 
 Consider these algorithms as some empty templates that are useless without any data to be trained on. Hence, the module **Train Model** explicitly specifies which ML algorithm to use (1st input) and which data to train the algorithm on (2nd input):
-{<18>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2003.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2003.png)
 
 Notice the red exclamation mark in the "Train Model" module: We need to specify which column the model is supposed to "predict". Click on **Launch Column Selector** in the Properties pane:
 
-{<19>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2004.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2004.png)
 
 Similar to the Column Selector in the Project Columns module, we can choose a column name from a dropdown menu. In our case, it is **BikeBuyer** (remember, we want to classify customers based on their demographic information if he/she is likely to buy a bike or not):
-{<20>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2005.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2005.png)
 
 Now that the model has been trained on specific data (i.e. [dbo].[vTargetMail]), we can test how well the model is doing on test data, i.e. the remaining 20% that we have put aside when splitting the data. For this purpose, you use the module called **Score Model** - another way of saying "Apply trained model on data...". 
-{<21>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2006.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2006.png)
 
 Now we come to one of the killer features of AzureML: You can easily compare different machine learning algorithms with each other. So we just **copy paste** the modules **Train Model** and **Score Model** within the ML studio: Select the modules "Train Model" and "Score Model"...
 
-{<22>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2007.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2007.png)
 
 ...right-click on them to copy...
-{<23>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2008.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2008.png)
 
 ...paste these two modules anywhere within the ML Studio...
-{<24>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2009.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2009.png)
 
 ...and drag in another Two-Class classification algorithm: **Two-Class Bayes Point Machine**:
-{<25>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2010.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2010.png)
 
 Lines need to be dragged the same way as with training and scoring the boosted decision tree on the left hand side:
-{<26>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2011.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2011.png)
 
 Finally, the module **Evaluate Model** allows one to quickly compare the two trained models using various evaluation metrics, such as the ROC-curve, the ration between precision and recall, and the lift-curve - more in the next section:
-{<27>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2012.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2012.png)
 
 Run the experiment!
-{<28>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2013.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2013.png)
 
 [Back to Targeted Marketing Overview](#mkt)
 
@@ -134,13 +134,13 @@ Run the experiment!
 ###5. Evaluate Model
 
 You can see that the experiment has finished running in the top right corner and the green ticks in each module:
-{<29>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%201.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%201.png)
 
 When clicking on the little circle in the **Evaluate Model** module, you can visualise the evaluation metrics of the two ML trained models as well as compare them with each other:
-{<30>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%202.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%202.png)
 
 The metrics provided are the [ROC-curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic), the precision-recall diagram and the [lift curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic):
-{<31>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%203.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%203.png)
 
 The four values in the blue box represent the [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is a 2x2-matrix since it is a binary classification problem; it contains the absolute number of true positives (i.e. customer has been correctly predicted to be a bike buyer), true negatives (i.e. customer has been correctly predicted to be a no-buyer), false positives (i.e. customer has falsely been predicted to be a bike buyer) and false negatives. The values in the green box a typical evaluation measure: [accuracy](https://en.wikipedia.org/wiki/Accuracy_and_precision), [precision](https://en.wikipedia.org/wiki/Precision_and_recall#Precision), [recall](https://en.wikipedia.org/wiki/Precision_and_recall#Recall) and [F1](https://en.wikipedia.org/wiki/F1_score).
 
@@ -148,10 +148,10 @@ Just by looking at the ROC-curve (as well as looking at the other two diagrams),
 
 Let's see what the better performing model has actually predicted. Click on the button of the left hand side **Score Model** and then click on **Visualize**: (Note you can also save the output as a  dataset)
 
-{<32>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%204.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%204.png)
 
 What the module *Score Model* has done is attach two more columns to the test dataset (i.e. the reserved 20% of the input dataset): **Scored Labels** and **Scored Probabilities**.
-{<33>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%205.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%206%20eval%205.png)
 
 The calculated probability indicates the the likelihood that a given customer is a bike buyer. For instance, the very first customer is predicted to be a bike buyer with a probability of 78%, whereas the third customer has a chance of being a bike buyer of merly 2,4% - making him a "no buyer". The threshold for the probability is set at 50% by default but can also be adjusted.
 
@@ -162,43 +162,43 @@ Comparing the columns **BikeBuyer** (so-called The Truth" and **Scored Labels** 
 <a name="publish"></a>
 ###6. Publish as Web Service
 
-{<34>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2000.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2000.png)
 
 Save the say best performing model by clicking on button at Train Model and click on **Save as Trained Model**:
-{<35>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2004.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2004.png)
 
 Give the trained model a name, e.g. Targeted Marketing Model:
-{<36>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2006.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2006.png)
 
 Save the current experiment as a new experiment, since we are now undergoing preparations for a web service that will be called as we gather information about new customers who we want to classify as a likely buyer or not:
-{<37>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2001.png)
-{<38>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2002.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2001.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2002.png)
 
 In the web service experiment, there is no need for the "loser model" anymore - we will only require the model we have saved as a trained model. Thus, delete the modules in the canvas associated with the "loser model":
-{<39>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2003.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2003.png)
 
 Since we have saved the trained Two-Class Boosted Decision Tree, we can replace the two modules "Two-Class Boosted Decision Tree" and "Train Model" with the **trained model Targeted Marketing Model**. It is listed in the catalogue pane (on the left hand side) under **Trained Models**:
-{<40>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2005.png)
-{<41>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2007.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2005.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2007.png)
 
 Here, we also delete the **Split** module since we are now only applying the trained module - no need to train and test it in the web service.
 
 Let's take a step back: We want to have a web service that takes in all the demographic information that we can get on a new customer. What the web service is then supposed to give out is a prediction if we are dealing with a bike buyer or not. Hence, the **BikeBuyer** column needs to be excluded in the input of the web service. We accomplish this by clicking on the **Project Columns** module, launching the column selector and excluding the column **BikeBuyer**:
-{<42>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2008.png)
-{<43>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2009.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2008.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2009.png)
 
 Now for the output of our web service, we only want to know the predictions along with the probabilities. Hence, add the module **Project Columns**...
-{<44>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2010.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2010.png)
 
 ...and only include **Scored Labels** and **Scored Probabilities**:
-{<45>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2011.png)
-{<46>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2012.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2011.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2012.png)
 
 The experiment is almost finished. Only things to specify are the input and output of the web service. Expand **Web Service** in the catalogue pane (on the left hand side) and drag in Input and Output as follows:
-{<47>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2013.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2013.png)
 
 It is finished - time to run the experiment and then **deploy the web service**:
-{<48>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2014.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2014.png)
 
 [Back to Targeted Marketing Overview](#mkt)
 
@@ -207,21 +207,21 @@ It is finished - time to run the experiment and then **deploy the web service**:
 ###7. Use Web Service
 
 The result is a web service with its associated API key. We will go through the three (or rather four) options of using the web service: [1) Manual test](#test), [2) downloading the Excel workbook](#excel), and [3) request/response help page](#api).
-{<49>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2015.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2015.png)
 
 
 <a name="test"></a>
 ######7.1. Test
 Test your web service by typing in the values for all criteria manually:
-{<50>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2016.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2016.png)
 
 <a name="excel"></a>
 ######7.2. Excel workbook
 The advantage of the Excel workbook is, you can simply copy paste multiple data rows from the AdventureWorks database (no need for manual typing). When opening the workbook, first enable the content:
-{<51>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2017.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2017.png)
 
 Back in the SQL Server Management Studio with the AdventureWorks database connected, run the same query as when reading the data in ML studio. The only difference is: exclude the columns **[CustomerAlternateKey]**, **[GeographyKey]** and **[BikeBuyer]**. Also I selected the first 10 customers with a customer key higher than some random set number:
-{<52>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2018.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2018.png)
 
 Here the script:
 
@@ -243,10 +243,10 @@ Here the script:
         WHERE CustomerKey > 11110
 
 These are the first 10 customers then:
-{<53>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2019.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2019.png)
 
 Copy all entries except for the last column (this is the column we aim to predict with the web service) into the Excel workbook. Give it a few minutes while the last two columns (**Predicted Values** in green) are being calculated by calling the web service:
-{<54>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2020.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2020.png)
 
 It turns out that our web service has incorrectly predicted bike buyers in two cases (marked in red). In fact, these have been identified as bike buyers with a probability of less than 90% - maybe the threshold for classifying a customer as a buyer needs to be raised from 50% to 90%?
 
@@ -254,17 +254,11 @@ It turns out that our web service has incorrectly predicted bike buyers in two c
 ######7.3. Request/Response API Documentation
 
 And the final option (or more precisely the final two options) are documentation pages for request/response or batch execution manners. Hence, when you want to integrate your machine learning models in productive code, e.g. apps, dashboards, etc., these are the pages to refer to.
-{<55>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2021.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2021.png)
 
 When scrolling down to the very end, you will also get sample code in C#, Python and R, that you can just paste into your application code.
-{<56>}![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2022.png)
+![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2022.png)
 
 [Back to Targeted Marketing Overview](#mkt)
 
 [Back to top](#top)
-
-#Further Resources
-
-Free online course in the Microsoft Virtual Academy: coming soon!
-
-<div style="width: 608px; max-width: 100%; margin-bottom:5px;"><a href="https://docs.com/olivia-klose/8805/2-targeted-marketing-binary-classification" title="2 | Targeted Marketing (Binary Classification)" target="_blank" style="font-family: 'Segoe UI'">2 | Targeted Marketing (Binary Classification)</a><span style="font-family: 'Segoe UI Light'">—</span><a href="https://docs.com/olivia-klose" target="_blank" style="font-family: 'Segoe UI'">Olivia Klose</a></div><iframe src="https://docs.com/d/embed/D25196084-4518-5543-5140-000364818457%7eMcdfa2183-f6c3-3a0f-6a2d-f1ff181442f3" frameborder="0" scrolling="no" width="608px" height="378px" style="max-width:100%"></iframe>
