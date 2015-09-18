@@ -2,6 +2,7 @@
 Accompanying material to the course [Building Recommendation Systems in Azure](https://www.microsoftvirtualacademy.com/en-us/training-courses/building-recommendation-systems-in-azure-13765) in the Microsoft Virtual Academy.
 
 The course is built as follows:
+
 1. **Machine Learning & Recommenders**: This module gives a short introduction in machine learning and recommendation systems. It particularly highlights the two main approaches of recommendations - collaborative and content-based filtering.
 2. **Targeted Marketing**: Before digging into recommendation systems, we look into the most simple form of machine learning problems - binary classification. Classification in general could be used as a basis for recommendations, too.
 3. **Collaborative Filtering: Association Rules in R & AzureML**: Here, we go through one common recommendation approach using RStudio. Then we integrate the R script into [Azure Machine Learning](http://studio.azureml.net)
