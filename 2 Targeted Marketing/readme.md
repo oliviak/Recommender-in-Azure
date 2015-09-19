@@ -6,7 +6,7 @@ Who doesn't know this situation: You get loads of newsletters that you sometimes
 
 In this scenario, we make use of the **AdventureWorks database**: We have a wide customer base for our bike shop and want to classify our customers as likely bike buyers or not, and thus run a more targeted marketing campaign.
 
-In [this step-by-step guide](https://github.com/oliviak/Recommender-in-Azure/tree/master/0%20AdventureWorks%20in%20Azure%20SQL%20DB), I have gone through the steps on setting up the AdventureWorks Warehouse database in an Azure SQL Database. This is a prerequisite for running the following ML experiment.
+In [this guide](https://github.com/oliviak/Recommender-in-Azure/tree/master/0%20AdventureWorks%20in%20Azure%20SQL%20DB), I have gone through the steps on setting up the AdventureWorks Warehouse database in an Azure SQL Database. This is a prerequisite for running the following ML experiment.
 
 0. [Prequisites](#prerequisites)
 1. [Get Data](#getdata)
