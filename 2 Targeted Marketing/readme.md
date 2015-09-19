@@ -6,7 +6,7 @@ Who doesn't know this situation: You get loads of newsletters that you sometimes
 
 In this scenario, we make use of the **AdventureWorks database**: We have a wide customer base for our bike shop and want to classify our customers as likely bike buyers or not, and thus run a more targeted marketing campaign.
 
-In [this blog post](http://oliviaklose.com/how-to-set-up-the-adventure-works-2014-warehouse-in-azure-sql-database/), I have gone through the steps on setting up the AdventureWorks Warehouse database in an Azure SQL Database. This is a prerequisite for running the following ML experiment.
+In [this step-by-step guide](https://github.com/oliviak/Recommender-in-Azure/tree/master/0%20AdventureWorks%20in%20Azure%20SQL%20DB), I have gone through the steps on setting up the AdventureWorks Warehouse database in an Azure SQL Database. This is a prerequisite for running the following ML experiment.
 
 0. [Prequisites](#prerequisites)
 1. [Get Data](#getdata)
@@ -21,7 +21,7 @@ In [this blog post](http://oliviaklose.com/how-to-set-up-the-adventure-works-201
 <a name="prerequisites"></a>
 ###1. Prerequisites
 
-- AdventureWorks Warehouse set up in an Azure SQL Database (see [this blog post](http://oliviaklose.com/how-to-set-up-the-adventure-works-2014-warehouse-in-azure-sql-database/) for a step-by-step guide)
+- AdventureWorks Warehouse set up in an Azure SQL Database (see [here](https://github.com/oliviak/Recommender-in-Azure/tree/master/0%20AdventureWorks%20in%20Azure%20SQL%20DB) for a step-by-step guide)
 - SQL Server Management Studio
 - Excel
 - Live ID, e.g. @outlook.com, @yahoo.com, etc.
@@ -38,7 +38,7 @@ The database of interest to us is **[dbo].[vTargetMail]** contained in the Adven
 
 We are particularly interested in the last column **BikeBuyer** indicating if a customer ended up **buying a bike or not** (hence binary classification).
 
-Moving on to the ML Studio and having already created a new experiment, we now drag the Reader module into the canvas of ML studio to read in the data directly from the view **[dbo].[vTargetMail]** contained in the Azure SQL Database **AdventureWorksDW2014** (see [here](http://oliviaklose.com/how-to-set-up-the-adventure-works-2014-warehouse-in-azure-sql-database/) for how to set it up).
+Moving on to the ML Studio and having already created a new experiment, we now drag the Reader module into the canvas of ML studio to read in the data directly from the view **[dbo].[vTargetMail]** contained in the Azure SQL Database **AdventureWorksDW2014** (see [here](https://github.com/oliviak/Recommender-in-Azure/tree/master/0%20AdventureWorks%20in%20Azure%20SQL%20DB) for how to set it up).
 
 ![](https://oliviak.blob.core.windows.net/blog/ML%20series/6%203%20data%202.png)
 
