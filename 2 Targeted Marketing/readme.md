@@ -62,7 +62,7 @@ On the right hand side (in the Properties pane) we specify the connection string
           ,[BikeBuyer]
       FROM AdventureWorksDW2014.[dbo].[vTargetMail]
   
-[Back to Targeted Marketing Overview](#mkt)
+[Back to top](#top)
 
 <a name="clean"></a>
 ###3. Clean Data
@@ -79,7 +79,7 @@ By clicking on **Launch column selector** in the Properties pane (on the right h
 
 Note that there are plenty more modules for cleaning data within AzureML, all listed in the catalogue pane on the left hand side under **Data Transformation**.
 
-[Back to Targeted Marketing Overview](#mkt)
+[Back to top](#top)
 
 <a name="build"></a>
 ###4. Build Model
@@ -128,7 +128,7 @@ Finally, the module **Evaluate Model** allows one to quickly compare the two tra
 Run the experiment!
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%205%20build%2013.png)
 
-[Back to Targeted Marketing Overview](#mkt)
+[Back to top](#top)
 
 <a name="eval"></a>
 ###5. Evaluate Model
@@ -157,7 +157,7 @@ The calculated probability indicates the the likelihood that a given customer is
 
 Comparing the columns **BikeBuyer** (so-called The Truth" and **Scored Labels** (the predictions), one can see how well a model has performed.
 
-[Back to Targeted Marketing Overview](#mkt)
+[Back to top](#top)
 
 <a name="publish"></a>
 ###6. Publish as Web Service
@@ -200,7 +200,7 @@ The experiment is almost finished. Only things to specify are the input and outp
 It is finished - time to run the experiment and then **deploy the web service**:
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2014.png)
 
-[Back to Targeted Marketing Overview](#mkt)
+[Back to top](#top)
 
 
 <a name="use"></a>
@@ -258,7 +258,5 @@ And the final option (or more precisely the final two options) are documentation
 
 When scrolling down to the very end, you will also get sample code in C#, Python and R, that you can just paste into your application code.
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/6%207%20ws%2022.png)
-
-[Back to Targeted Marketing Overview](#mkt)
 
 [Back to top](#top)

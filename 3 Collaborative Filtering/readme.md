@@ -187,7 +187,7 @@ Expand **R Language Modules** in the catalogue pane to drag **Execute R Script**
 
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/8%204%20exp%2002.png)
 
-In the properties pane (on the right hand side), paste the R script from the 2 main steps before with slight changes (or just [R-Script-in-AzureML.R]()) into the **R Script** field:
+In the properties pane (on the right hand side), paste the R script from the 2 main steps before with slight changes (or just [R-Script-in-AzureML.R](https://github.com/oliviak/Recommender-in-Azure/blob/master/3%20Collaborative%20Filtering/R-Script-in-AzureML.R)) into the **R Script** field:
 
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/8%204%20exp%2003.png)
 
