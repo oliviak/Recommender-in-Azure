@@ -53,7 +53,6 @@ And import these libraries into our working directory by executing the following
 	library( arulesViz )
 
 ###1.c Transactions
-Transaction := set of items (**itemset**), e.g. 
 A **transaction** is a set of items. So we want to "summarise" all the items bought together into sets of items (i.e. transactions)
 
 #####Read Transactions
