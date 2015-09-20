@@ -175,7 +175,7 @@ Now on to the item features which in this case will just be dummy data. We will 
 
 Since the **Properties** column contains the same value across all rows, it doesn't give any information gain and therefore will not make a difference on the recommender model.
 
-There are two options: One is to use the model **Execute R Script** with the script [CreateItemFeatures.R]() followed by **Metadata Editor** to rename the columns and skip to the **[Remove Duplicate Rows](#skip)**.
+There are two options: One is to use the model **Execute R Script** with the script [CreateItemFeatures.R](https://github.com/oliviak/Recommender-in-Azure/blob/master/4%20Content-Filtering%20and%20Hybrid%20recommender/CreateItemFeatures.R) followed by **Metadata Editor** to rename the columns and skip to the **[Remove Duplicate Rows](#skip)**.
 ![](http://oliviak.blob.core.windows.net/blog/ML%20series/9%205%20hybrid%2021.png)
 
 Another option is just using the modules provided in AzureML to add the column of 1's for all rows. We start off with the column **Apply Math Operation** found under **Statistical Functions** in the catalogue. You connect it to **Metadata Editor**. In the properties pane you configure the following settings:
